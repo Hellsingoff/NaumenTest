@@ -18,9 +18,9 @@ def top_hashtags():
                 htag_words[htag] = {}
             for word in line.split():
                 '''В ТЗ указано, что "в значащих словах не может быть пробелов и цифр",
-                но не указано исключить из них знаки препинания. 
-                Это странно, но пусть будет по ТЗ.'''
-                if re.match(r"^[a-zа-я]+\D*$", word):
+                но тут версия слов с дополнительной обрезкой пунктуации.'''
+                if re.match(r"[a-zа-я]+\D*", word):
+                    word = re.sub(r"[.,!\";:?)\]}']*$", '', word)
                     if word in htag_words[htag]:
                         htag_words[htag][word] += 1
                     else:
